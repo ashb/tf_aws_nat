@@ -22,13 +22,20 @@ data "aws_vpc" "vpc" {
   id = "${data.aws_subnet.first.vpc_id}"
 }
 
+data "aws_region" "current" {
+  current = true
+}
+
 data "template_file" "user_data" {
   template = "${file("${path.module}/nat-user-data.conf.tmpl")}"
   count = "${var.instance_count}"
 
   vars {
+    name = "${var.name}"
     myaz = "${element(var.az_list, count.index)}"
     vpc_cidr = "${data.aws_vpc.vpc.cidr_block}"
+    region = "${data.aws_region.current.name}"
+    awsnycast_deb_url = "${var.awsnycast_deb_url}"
   }
 }
 
