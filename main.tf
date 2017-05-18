@@ -43,14 +43,5 @@ resource "aws_instance" "nat" {
     vpc_security_group_ids = ["${var.vpc_security_group_ids}"]
     tags = "${merge(var.tags, map("Name", format("%s-nat%d", var.name, count.index+1)))}"
     user_data = "${element(data.template_file.user_data.*.rendered, count.index)}"
-    provisioner "remote-exec" {
-        inline = [
-          "while sudo pkill -0 cloud-init; do sleep 2; done"
-        ]
-        connection {
-          user = "ubuntu"
-          private_key = "${var.aws_key_location}"
-        }
-    }
 }
 

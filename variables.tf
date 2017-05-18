@@ -25,5 +25,3 @@ variable "vpc_security_group_ids" {
   type = "list"
 }
 variable "aws_key_name" {}
-variable "aws_key_location" {}
-
