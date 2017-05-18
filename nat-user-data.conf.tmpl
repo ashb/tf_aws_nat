@@ -50,6 +50,7 @@ write_files:
                    - cidr: 0.0.0.0/0
                      instance: SELF
                      healthcheck: public
+                     never_delete: true
              other_azs:
                 find:
                     type: and
@@ -89,5 +90,5 @@ bootcmd:
  - [ iptables, -I, INPUT, -i, lo, -j, ACCEPT ]
  - [ iptables, -A, INPUT, -j, LOGGINGI ]
  - [ iptables, -P, INPUT, DROP ]
- - [ sh, -c, "cd /tmp;wget https://github.com/bobtfish/AWSnycast/releases/download/v0.0.9/awsnycast_0.0.9-249_amd64.deb&&dpkg -i awsnycast_0.0.9-249_amd64.deb" ]
+ - [ sh, -c, "cd /tmp;wget https://github.com/bobtfish/AWSnycast/releases/download/v0.0.9/awsnycast_0.1.2-397.deb&&dpkg -i awsnycast_*.deb;rm *.deb" ]
  - [ systemctl, start, awsnycast ]
