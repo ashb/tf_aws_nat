@@ -15,6 +15,7 @@
   * security_groups
   * aws_key_name
   * aws_key_location
+  * tags
 
 ## Outputs
 
