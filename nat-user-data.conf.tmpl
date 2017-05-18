@@ -69,7 +69,8 @@ write_files:
                     instance: SELF
                     healthcheck: public
                     if_unhealthy: true
-runcmd:
+# These need to run on _every_ boot.
+bootcmd:
  - [ sh, -c, "echo 1 > /proc/sys/net/ipv4/ip_forward;echo 655361 > /proc/sys/net/netfilter/nf_conntrack_max" ]
  - [ iptables, -N, LOGGINGF ]
  - [ iptables, -N, LOGGINGI ]
