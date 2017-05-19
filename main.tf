@@ -14,19 +14,10 @@ data "aws_ami" "ami" {
   owners = ["${var.ami_publisher}"]
 }
 
-# Work around to bugs:
-# https://github.com/hashicorp/terraform/issues/7762 - data resource attributes cannot be interpolated into count 
-# https://github.com/hashicorp/terraform/issues/4084 - Intermediate variables
-resource "null_resource" "intermediates" {
-    triggers = {
-        subnet_count = "${length(var.subnet_ids)}"
-    }
-  }
-
 # We are given as input a list of subnets to create the NAT in. Lets use them to find out about the VPC.
 data "aws_subnet" "subnets" {
-  count = "${null_resource.intermediates.triggers.subnet_count}"
-  id = "${var.subnet_ids[0]}"
+  count = "${var.subnets_count}"
+  id = "${element(var.subnet_ids, count.index)}"
 }
 
 data "aws_vpc" "vpc" {

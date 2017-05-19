@@ -21,6 +21,9 @@ variable "az_list" {
 variable "subnet_ids" {
   type = "list"
 }
+variable "subnets_count" {
+  description = "The number of subnets in subnet_ids. Requiest because of hashicorp/terraform#"
+}
 variable "vpc_security_group_ids" {
   type = "list"
 }
