@@ -14,14 +14,8 @@ data "aws_ami" "ami" {
   owners = ["${var.ami_publisher}"]
 }
 
-# We are given as input a list of subnets to create the NAT in. Lets use them to find out about the VPC.
-data "aws_subnet" "subnets" {
-  count = "${var.subnets_count}"
-  id = "${element(var.subnet_ids, count.index)}"
-}
-
 data "aws_vpc" "vpc" {
-  id = "${data.aws_subnet.subnets.0.vpc_id}"
+  id = "${data.aws_subnet.public_subnets.0.vpc_id}"
 }
 
 data "aws_region" "current" {
@@ -34,7 +28,7 @@ data "template_file" "user_data" {
 
   vars {
     name = "${var.name}"
-    myaz = "${element(data.aws_subnet.subnets.*.availability_zone, count.index)}"
+    mysubnet = "${element(var.private_subnet_ids, count.index)}"
     vpc_cidr = "${data.aws_vpc.vpc.cidr_block}"
     region = "${data.aws_region.current.name}"
     awsnycast_deb_url = "${var.awsnycast_deb_url}"

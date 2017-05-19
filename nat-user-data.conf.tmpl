@@ -29,10 +29,9 @@ write_files:
         routetables:
              my_az:
                 find:
-                    type: by_tag
+                    type: subnet
                     config:
-                        key: Name
-                        value: ${name}-rt-private-${myaz}
+                        subnet_id: ${mysubnet}
                 manage_routes:
                    - cidr: 0.0.0.0/0
                      instance: SELF
@@ -42,14 +41,11 @@ write_files:
                 find:
                     type: and
                     config:
-                        # For example.
-                        # Any thing called my-name-rt-private-eu-west-1*, that isn't my_az in
                         filters:
-                          - type: by_tag
+                          - type: subnet
                             not: true
                             config:
-                                key: az
-                                value: ${name}-rt-private-${myaz}
+                                subnet_id: ${mysubnet}
                           - type: by_tag_regexp
                             config:
                                 key: Name

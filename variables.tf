@@ -18,11 +18,14 @@ variable "instance_count" {}
 variable "az_list" {
   type = "list"
 }
-variable "subnet_ids" {
+variable "public_subnet_ids" {
+  type = "list"
+}
+variable "private_subnet_ids" {
   type = "list"
 }
 variable "subnets_count" {
-  description = "The number of subnets in subnet_ids. Requiest because of hashicorp/terraform#"
+  description = "The number of subnets in public_subnet_ids. Requiest because of hashicorp/terraform#1497"
 }
 variable "vpc_security_group_ids" {
   type = "list"
