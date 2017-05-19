@@ -32,5 +32,5 @@ variable "vpc_security_group_ids" {
 }
 variable "aws_key_name" {}
 variable "awsnycast_deb_url" {
-  default = "https://github.com/bobtfish/AWSnycast/releases/download/v0.1.2/awsnycast_0.1.2-397_amd64.deb"
+  default = "https://github.com/bobtfish/AWSnycast/releases/download/v0.1.5/awsnycast_0.1.5-425_amd64.deb"
 }
